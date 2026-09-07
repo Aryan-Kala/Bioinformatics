@@ -1,22 +1,23 @@
 import matplotlib.pyplot as plt
 
-human_hbb = "MVHLTPEEKSAVTALWGKVNVDEVGGEALGRLLVVYPWTQRFFESFGDLSTPDAVMGNPKVKAHGKKVLGAFSDGLAHLDNLKGTFATLSELHCDKLHVDPENFRLLGNVLVCVLAHHFGKEFTPPVQAAYQKVVAGVANALAHKYH"
-chicken_hbb = "MVHWTAEEKQLITGLWGKVNVAECGAEALARLLIVYPWTQRFFASFGNLSSPTAILGNPMVRAHGKKVLTSFGDAVKNLDNIKNTFAQLSELHCDKLHVDPENFRLLGDILIIVLAAHFSKDFTPECQAAWQKLVRVVAHALARKYH"
+# Two protein sequences
+seq1 = "MVHLTPEEKSAVTALWGKVNVDEVGGEALGRLLVVYPWTQRFFESFGDLSTPDAVMGNPKVKAHGKKVLGAFSDGLAHLDNLKGTFATLSELHCDKLHVDPENFRLLGNVLVCVLAHHFGKEFTPPVQAAYQKVVAGVANALAHKYH"
+seq2 = "MVHWTAEEKQLITGLWGKVNVAECGAEALARLLIVYPWTQRFFASFGNLSPTAILGPNMVRAHGKKVLTSFGDAVKNLDNIKNTFSQLSELHCDKLHVDPENFRLLGDILIIVLAAHFSKDFTPECQAAWQKLRVVVAHALARKYH"
 
-x_coords = []
-y_coords = []
+plt.figure(figsize=(10, 10))
 
-for i, res1 in enumerate(human_hbb):
-    for j, res2 in enumerate(chicken_hbb):
-        if res1 == res2:
-            x_coords.append(i + 1)
-            y_coords.append(j + 1)
+for i in range(len(seq1)):
+    for j in range(len(seq2)):
+        if seq1[i] == seq2[j]:
+            plt.plot(i + 1, j + 1, 'k.')
 
-# Generate Plot
-plt.figure(figsize=(7, 7))
-plt.scatter(x_coords, y_coords, color='black', s=6)
-plt.xlabel("Human Hb β Chain (Residues 1-147)")
-plt.ylabel("Chicken Hb β Chain (Residues 1-147)")
-plt.title("Dot Plot: Human vs. Chicken Hemoglobin β Chain")
-plt.grid(True, linestyle='--', alpha=0.5)
+plt.xlabel("Human Heamoglobin")
+plt.ylabel("Chicken Heamoglobin")
+plt.title("Dot Plot of Two Protein Sequences")
+
+plt.xlim(0, len(seq1) + 1)
+plt.ylim(0, len(seq2) + 1)
+
+plt.grid(True)
+
 plt.show()
