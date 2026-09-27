@@ -1,0 +1,43 @@
+import re
+
+def read_fasta_with_headers(filepath):
+    """Reads a FASTA file and returns a dictionary of {header: sequence}."""
+    sequences = {}
+    current_header = ""
+    
+    try:
+        with open(filepath, "r") as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith(">"):
+                    current_header = line
+                    sequences[current_header] = ""
+                elif current_header:
+                    sequences[current_header] += line
+        return sequences
+    except FileNotFoundError:
+        print(f"Error: Could not find '{filepath}'. Make sure it's in the same directory.")
+        return {}
+
+# The regular expression pattern for the motif: [KRHQFE]-x-G-[IVLFAC]-x-[IVLFMYW]-x-[IVLFW]
+pattern = re.compile(r"[KRHQFE].G[IVLFAC].[IVLFMYW].[IVLFW]")
+
+# Updated filename to match your file
+sequences = read_fasta_with_headers("sms2results.fasta")
+
+total_hits = 0
+sequences_with_hits = 0
+
+if sequences:
+    print("Searching for motif matches...")
+    for header, seq in sequences.items():
+        matches = list(pattern.finditer(seq))
+        if matches:
+            sequences_with_hits += 1
+            total_hits += len(matches)
+            print(f"Header: {header} -> {len(matches)} match(es)")
+
+    print("\n" + "="*40)
+    print(f"Total Hits Found: {total_hits}")
+    print(f"Total Sequences Containing Hits: {sequences_with_hits}")
+    print("="*40)
