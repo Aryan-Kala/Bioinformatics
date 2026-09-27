@@ -19,10 +19,10 @@ def read_fasta_with_headers(filepath):
         print(f"Error: Could not find '{filepath}'. Make sure it's in the same directory.")
         return {}
 
-# The regular expression pattern for the motif: [KRHQFE]-x-G-[IVLFAC]-x-[IVLFMYW]-x-[IVLFW]
+
 pattern = re.compile(r"[KRHQFE].G[IVLFAC].[IVLFMYW].[IVLFW]")
 
-# Updated filename to match your file
+
 sequences = read_fasta_with_headers("sms2results.fasta")
 
 total_hits = 0
